@@ -1,8 +1,3 @@
-FROM ubuntu:latest
-LABEL authors="igor"
-
-ENTRYPOINT ["top", "-b"]
-
 FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
