@@ -1,4 +1,4 @@
-compose-up:
+compose-up-d:
 	docker-compose --env-file ./docker/.env up -d
 
 compose-build:
@@ -9,3 +9,6 @@ compose-down:
 
 compose-config:
 	docker-compose --env-file ./docker/.env config
+
+compose-ps:
+	docker-compose --env-file ./docker/.env ps
