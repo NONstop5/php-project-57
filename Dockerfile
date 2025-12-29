@@ -19,7 +19,6 @@ COPY . .
 RUN composer install
 RUN npm ci
 RUN npm run build
-
-RUN > database/database.sqlite
+RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
 
 CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
