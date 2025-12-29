@@ -1,22 +1,24 @@
 include ./compose.mk
 
 start:
-	php artisan serve --host 0.0.0.0
+	php artisan serve --host=0.0.0.0
 
 start-frontend:
 	npm run dev
 
-install: setup
-
-setup:
+install:
 	composer install
-	cp -n .env.example .env
-	php artisan key:gen --ansi
-	touch database/database.sqlite
-	php artisan migrate
-	php artisan db:seed
 	npm ci
 	npm run build
+
+env-prepare:
+	php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+setup:
+	make env-prepare
+	php artisan key:gen --ansi
+	php artisan migrate
+	php artisan db:seed
 	make ide-helper
 
 watch:
