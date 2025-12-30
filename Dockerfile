@@ -17,10 +17,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN make install
+RUN composer install
+RUN npm ci
+RUN npm run build
 
-# Скрипт запуска с отладкой
-COPY ./docker/start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
-
-CMD ["/usr/local/bin/start.sh"]
+CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
