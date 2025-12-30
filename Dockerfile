@@ -16,9 +16,11 @@ RUN apt-get install -y nodejs
 WORKDIR /app
 
 COPY . .
+
 RUN composer install
 RUN npm ci
 RUN npm run build
-RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
+RUN make env-prepare
+RUN php artisan key:gen --ansi
 
 CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
