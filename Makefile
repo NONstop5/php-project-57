@@ -11,21 +11,35 @@ install:
 	npm ci
 	npm run build
 
+setup-prod:
+	make env-prepare
+	make key-gen
+	php artisan migrate --seed --force
+
 env-prepare:
 	php -r "file_exists('.env') || copy('.env.example', '.env');"
 
+env-prod-prepare:
+	php -r "file_exists('.env') || copy('.env.prod.example', '.env');"
+
 setup:
 	make env-prepare
-	php artisan key:gen --ansi
-	php artisan migrate
-	php artisan db:seed
+	make key-gen
+	make migrate
+	make seed
 	make ide-helper
 
 watch:
 	npm run watch
 
+key-gen:
+	php artisan key:gen --ansi
+
 migrate:
 	php artisan migrate
+
+seed:
+	php artisan db:seed
 
 tinker:
 	php artisan tinker
