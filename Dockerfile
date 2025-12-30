@@ -17,4 +17,10 @@ WORKDIR /app
 
 COPY . .
 
-CMD ["bash", "-c", "make install-prod && php artisan serve --host=0.0.0.0 --port=$PORT"]
+RUN make install
+
+# Скрипт запуска с отладкой
+COPY ./docker/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+CMD ["/usr/local/bin/start.sh"]
