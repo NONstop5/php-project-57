@@ -23,8 +23,10 @@ env-prod-prepare:
 	php -r "file_exists('.env') || copy('.env.prod.example', '.env');"
 
 setup:
+	make install
 	make env-prepare
 	make key-gen
+	touch database/database.sqlite
 	make migrate
 	make seed
 	make ide-helper
