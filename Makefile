@@ -11,16 +11,8 @@ install:
 	npm ci
 	npm run build
 
-setup-prod:
-	make env-prepare
-	make key-gen
-	php artisan migrate --seed --force
-
 env-prepare:
 	php -r "file_exists('.env') || copy('.env.example', '.env');"
-
-env-prod-prepare:
-	php -r "file_exists('.env') || copy('.env.prod.example', '.env');"
 
 setup:
 	make install
