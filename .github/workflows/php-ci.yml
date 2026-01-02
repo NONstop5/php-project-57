@@ -40,3 +40,8 @@ jobs:
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: make test-coverage
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
